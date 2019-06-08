@@ -1,28 +1,36 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="app">
+        <Header />
+        <router-view></router-view>
+        <Footer />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from 'axios';
+    
+import Header from './components/Header.vue'
+
+import Footer from './components/Footer.vue'
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+    
+    name: 'app',
+    
+    components: {
+        Header,
+        Footer
+    },
+    
+    mounted: function() {
+        
+        this.$store.dispatch('initAxiosAction')
+                    .then(response => {
+            this.$store.dispatch('initClubAction')               
+        });
+    }    
+}  
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
