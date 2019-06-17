@@ -37,6 +37,7 @@ export default {
         return {
             fields: ['categories',
                     'date_competition',
+                    'duration',
                     'libelle']
         };
     },

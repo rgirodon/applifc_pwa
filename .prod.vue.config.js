@@ -6,13 +6,13 @@ module.exports = {
         workboxOptions: {
             runtimeCaching: [ 
                 {
-                    urlPattern: /^http:\/\/\w+\.applifc\.com\/api\//,
+                    urlPattern: /^https:\/\/\w+\.designtech-academie\.fr\/api\//,
                     handler: 'networkFirst',
                     options: {
-                        networkTimeoutSeconds: 60,
+                        networkTimeoutSeconds: 10,
                         cacheName: 'applifc-api',
                         cacheableResponse: {
-                            statuses: [0, 200]
+                            statuses: [0, 200],
                         },
                         plugins: [
                             {
@@ -31,7 +31,7 @@ module.exports = {
                                         .then((body) => new Response(body, init));
                                 }
                             }
-                        ],
+                        ]
                     }
                 },
                 {
@@ -49,7 +49,7 @@ module.exports = {
                     }
                 },
                 {
-                    urlPattern: /^http:\/\/\w+\.applifc\.com\/images\//,
+                    urlPattern: /^https:\/\/\w+\.designtech-academie\.fr\/images\//,
                     handler: 'cacheFirst',
                     options: {
                         cacheName: 'applifc-img',
