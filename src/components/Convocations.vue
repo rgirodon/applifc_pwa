@@ -25,15 +25,42 @@
         </h1>
         <h2>Voici la liste des convocations programmées pour les semaines à venir</h2>
         <div>
-            <b-table striped hover :items="convocations" :fields="fields"></b-table>
-        </div>
+            <b-table striped hover :items="convocations" :fields="fields">
+            
+                <template slot="actions" slot-scope="data">
+                    
+                    <b-link class="iconLink" href="javascript:void(0);" 
+                            @click="showConvocationPlayersModal(data.item.id)">
+                        <i class="fas fa-users"></i>
+                    </b-link>
+                    
+                </template>
+
+            </b-table>
+        </div>  
+        <b-modal id="convocationPlayersModal" ref="convocationPlayersModal" title="Joueurs Convoqués">
+            <ul>   
+                <li v-for="player in convocationPlayers">
+                    {{ player.firstname + ' ' + player.lastname }}
+                </li>
+            </ul>
+            <div slot="modal-footer" class="w-100">            
+                <b-button
+                  class="float-right"
+                  @click="hideConvocationPlayersModal">
+                  Close
+                </b-button>
+            </div>
+        </b-modal>
     </main>
 
 </template>
 
 <script>
     
-import clubMixin from './ClubMixin' 
+import clubMixin from './ClubMixin';
+    
+import axios from 'axios';
 
 export default {
     
@@ -49,7 +76,14 @@ export default {
                     'coach',
                     'heure_/_lieu',
                     'description',
-                    'commentaires']
+                    'commentaires',
+                    { key: 'actions', label: 'Actions' }],
+            
+            clickedConvocationId: '',
+            
+            clubServer: '',
+            
+            convocationPlayers : []
         };
     },
     
@@ -99,7 +133,39 @@ export default {
         }
     },
     
+    methods: {
+        showConvocationPlayersModal: function(convocationId) {
+
+            this.clickedConvocationId = convocationId;
+
+            axios.get(
+                process.env.VUE_APP_BACKEND_PROTOCOL + 
+                this.clubServer +           
+                process.env.VUE_APP_BACKEND_DOMAIN + 
+                '/api/convocations/' + this.clickedConvocationId)
+                  
+                .then(response => {
+                    
+                    this.convocationPlayers = [];
+                
+                    response.data.players.forEach(
+                        player => {   
+                            this.convocationPlayers.push(player);
+                        }
+                    );
+                });
+            
+            this.$refs['convocationPlayersModal'].show();
+        },
+        hideConvocationPlayersModal: function() {
+
+            this.$refs['convocationPlayersModal'].hide();
+        }
+    },
+    
     mounted: function() {
+        
+        this.clubServer = this.getClubServer();
         
         this.$store.dispatch('initConvocationsAction');
         
@@ -139,6 +205,14 @@ export default {
     span.dropdown {
     
         margin-left: 10px
+    }
+    
+    a.iconLink {
+        color: #636b6f;
+    }
+    
+    a.iconLink:hover {
+        color: #216a94;
     }
     
 </style>

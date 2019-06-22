@@ -99,8 +99,6 @@ export default new Vuex.Store({
 
                   axios.defaults.headers.common = {'Authorization': `Bearer ${token}`};
                   
-                  // axios.defaults.headers.common = {};
-                  
                   resolve();
               })
               .catch(error => {

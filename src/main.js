@@ -7,6 +7,7 @@ import './registerServiceWorker'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '../public/styles/style.css'
+import '@fortawesome/fontawesome-free/css/all.css'
 
 Vue.use(BootstrapVue)
 
