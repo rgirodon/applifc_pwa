@@ -1,12 +1,11 @@
 module.exports = {
-
     pwa: { 
         name: 'AppliFC',
         workboxPluginMode: 'GenerateSW',
         workboxOptions: {
             runtimeCaching: [ 
                 {
-                    urlPattern: /^http:\/\/\w+\.applifc\.com\/api\//,
+                    urlPattern: /^http:\/\/\w+\.applifc\.com:8080\/api\//,
                     handler: 'networkFirst',
                     options: {
                         networkTimeoutSeconds: 60,
@@ -49,7 +48,7 @@ module.exports = {
                     }
                 },
                 {
-                    urlPattern: /^http:\/\/\w+\.applifc\.com\/images\//,
+                    urlPattern: /^http:\/\/\w+\.applifc\.com:8080\/images\//,
                     handler: 'cacheFirst',
                     options: {
                         cacheName: 'applifc-img',
