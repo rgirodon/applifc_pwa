@@ -47,6 +47,7 @@ export default {
         return {
             fields: ['date',
                     'categories',
+                    'heure_/_lieu',
                     'coach']
         };
     },
