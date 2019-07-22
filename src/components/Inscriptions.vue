@@ -1,8 +1,9 @@
 <template>
     
     <main>
-        <h1>
-            {{ club.name }} - Inscriptions
+        <h3>{{ club.name }}</h3>
+        <h4>Inscriptions</h4>
+        <div class="buttonBar">
             <span class="dropdown">
                 <b-dropdown id="dropdown-left" :text="categoryFilterButtonLabel" variant="primary">
                     <b-dropdown-item to="/inscriptions">Toutes les catégories</b-dropdown-item>
@@ -13,10 +14,14 @@
                     </b-dropdown-item>
                 </b-dropdown>
             </span>
-        </h1>
-        <h2>Voici la liste des compétitions programmées pour les semaines à venir</h2>
+        </div>
+        <h4>Voici la liste des compétitions programmées pour les semaines à venir</h4>
         <div>
-            <b-table striped hover :items="inscriptions" :fields="fields"></b-table>
+            <b-table striped hover :items="inscriptions" :fields="fields">
+                <template slot="duration" slot-scope="data">                    
+                    {{ data.item.duration }}                    
+                </template>
+            </b-table>
         </div>
     </main>
 
@@ -37,7 +42,7 @@ export default {
         return {
             fields: ['categories',
                     'date_competition',
-                    'duration',
+                    { key: 'duration', label: 'Durée' },
                     'libelle']
         };
     },
@@ -98,8 +103,12 @@ export default {
 
 <style scoped>
     
-    span.dropdown {
+    h3, h4, .buttonBar {        
+        text-align: center;
+        padding: 0.25rem;
+    }
     
+    span.dropdown + span.dropdown {    
         margin-left: 10px
     }
     

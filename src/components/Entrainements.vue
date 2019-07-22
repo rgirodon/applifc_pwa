@@ -1,9 +1,9 @@
 <template>
     
     <main>
-        <h1>
-            {{ club.name }} - Entrainements
-            
+        <h3>{{ club.name }}</h3>
+        <h4>Entrainements</h4>
+        <div class="buttonBar">    
             <span class="dropdown">
                 <b-dropdown id="dropdown-left" :text="categoryFilterButtonLabel" variant="primary">
                     <b-dropdown-item to="/entrainements">Toutes les catégories</b-dropdown-item>
@@ -23,8 +23,8 @@
                                      v-bind:key="coach.id">{{ coach.firstname + ' ' + coach.lastname }}</b-dropdown-item>
                 </b-dropdown>
             </span>
-        </h1>
-        <h2>Voici la liste des entrainements programmés pour les semaines à venir</h2>
+        </div>
+        <h4>Voici la liste des entrainements programmés pour les semaines à venir</h4>
         <div>
             <b-table striped hover :items="entrainements" :fields="fields"></b-table>
         </div>
@@ -134,9 +134,12 @@ export default {
 </script>
 
 <style scoped>
+    h3, h4, .buttonBar {        
+        text-align: center;
+        padding: 0.25rem;
+    }
     
-    span.dropdown {
-    
+    span.dropdown + span.dropdown {    
         margin-left: 10px
     }
     

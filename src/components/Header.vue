@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style scoped>
-
+    
 .navbar {
     padding-bottom: 0;
     padding-top: 0;
